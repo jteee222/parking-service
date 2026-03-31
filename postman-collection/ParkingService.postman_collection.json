@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "9f12f684-c72e-46b9-8119-1d632a8a70bd",
+		"name": "ParkingService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15926809"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"authToken\", pm.response.text());\r",
+							"\r",
+							"console.log(\"Token saved:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/auth/login?username=admin&password=password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterVehicle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"licensePlate\": \"FFF-666\",\r\n    \"type\": \"CAR\",\r\n    \"ownerName\": \"Justine Encarnacion\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterParkingLot",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lotId\": \"LOT4\",\r\n    \"location\": \"Cavite\",\r\n    \"capacity\": 4,\r\n    \"costPerMinute\": 2.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/lots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"lots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckIn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/checkin?plate=FFF-666&lotId=LOT4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"checkin"
+					],
+					"query": [
+						{
+							"key": "plate",
+							"value": "FFF-666"
+						},
+						{
+							"key": "lotId",
+							"value": "LOT4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/checkout?plate=FFF-666",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"checkout"
+					],
+					"query": [
+						{
+							"key": "plate",
+							"value": "FFF-666"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ParkingLotStatus",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/lots/LOT1/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"lots",
+						"LOT1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VehiclesInLot",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NDk2MzI5OCwiZXhwIjoxNzc0OTY2ODk4fQ.mQvNUCeEjGlYk4FjWBvpyyfGoR0wG9und72pOgqU1Dk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/lots/LOT1/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"lots",
+						"LOT1",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
